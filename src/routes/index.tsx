@@ -20,7 +20,8 @@ export const Route = createFileRoute("/")({
       { title: "AWS Services Directory" },
       {
         name: "description",
-        content: "Browse popular AWS cloud services across compute, storage, databases, networking, security, analytics, and AI.",
+        content:
+          "Browse popular AWS cloud services across compute, storage, databases, networking, security, analytics, and AI.",
       },
       { property: "og:title", content: "AWS Services Directory" },
       {
@@ -35,14 +36,7 @@ export const Route = createFileRoute("/")({
 });
 
 type Category =
-  | "All"
-  | "Compute"
-  | "Storage"
-  | "Database"
-  | "Networking"
-  | "Security"
-  | "Analytics"
-  | "AI & ML";
+  "All" | "Compute" | "Storage" | "Database" | "Networking" | "Security" | "Analytics" | "AI & ML";
 
 const categories: Category[] = [
   "All",
@@ -56,21 +50,96 @@ const categories: Category[] = [
 ];
 
 const services = [
-  { name: "Amazon EC2", category: "Compute", description: "Secure, resizable virtual servers for virtually any workload.", icon: Server },
-  { name: "AWS Lambda", category: "Compute", description: "Run code without provisioning or managing servers.", icon: Cloud },
-  { name: "Amazon ECS", category: "Compute", description: "Run and scale containerized applications with ease.", icon: Box },
-  { name: "Amazon S3", category: "Storage", description: "Scalable object storage with industry-leading durability.", icon: HardDrive },
-  { name: "Amazon EBS", category: "Storage", description: "High-performance block storage designed for EC2.", icon: HardDrive },
-  { name: "Amazon RDS", category: "Database", description: "Set up, operate, and scale relational databases.", icon: Database },
-  { name: "Amazon DynamoDB", category: "Database", description: "Fast, flexible NoSQL database with single-digit millisecond performance.", icon: Database },
-  { name: "Amazon VPC", category: "Networking", description: "Define and launch AWS resources in an isolated virtual network.", icon: Globe2 },
-  { name: "Amazon CloudFront", category: "Networking", description: "Deliver content globally with low latency and high speed.", icon: Globe2 },
-  { name: "AWS IAM", category: "Security", description: "Securely manage identities and access to AWS services.", icon: LockKeyhole },
-  { name: "Amazon GuardDuty", category: "Security", description: "Continuously monitor for malicious activity and threats.", icon: LockKeyhole },
-  { name: "Amazon Redshift", category: "Analytics", description: "Analyze data at scale with a fast cloud data warehouse.", icon: BarChart3 },
-  { name: "Amazon Athena", category: "Analytics", description: "Query data in Amazon S3 using standard SQL.", icon: BarChart3 },
-  { name: "Amazon SageMaker", category: "AI & ML", description: "Build, train, and deploy machine learning models at scale.", icon: Bot },
-  { name: "Amazon Bedrock", category: "AI & ML", description: "Build generative AI applications with foundation models.", icon: Bot },
+  {
+    name: "Amazon EC2",
+    category: "Compute",
+    description: "Secure, resizable virtual servers for virtually any workload.",
+    icon: Server,
+  },
+  {
+    name: "AWS Lambda",
+    category: "Compute",
+    description: "Run code without provisioning or managing servers.",
+    icon: Cloud,
+  },
+  {
+    name: "Amazon ECS",
+    category: "Compute",
+    description: "Run and scale containerized applications with ease.",
+    icon: Box,
+  },
+  {
+    name: "Amazon S3",
+    category: "Storage",
+    description: "Scalable object storage with industry-leading durability.",
+    icon: HardDrive,
+  },
+  {
+    name: "Amazon EBS",
+    category: "Storage",
+    description: "High-performance block storage designed for EC2.",
+    icon: HardDrive,
+  },
+  {
+    name: "Amazon RDS",
+    category: "Database",
+    description: "Set up, operate, and scale relational databases.",
+    icon: Database,
+  },
+  {
+    name: "Amazon DynamoDB",
+    category: "Database",
+    description: "Fast, flexible NoSQL database with single-digit millisecond performance.",
+    icon: Database,
+  },
+  {
+    name: "Amazon VPC",
+    category: "Networking",
+    description: "Define and launch AWS resources in an isolated virtual network.",
+    icon: Globe2,
+  },
+  {
+    name: "Amazon CloudFront",
+    category: "Networking",
+    description: "Deliver content globally with low latency and high speed.",
+    icon: Globe2,
+  },
+  {
+    name: "AWS IAM",
+    category: "Security",
+    description: "Securely manage identities and access to AWS services.",
+    icon: LockKeyhole,
+  },
+  {
+    name: "Amazon GuardDuty",
+    category: "Security",
+    description: "Continuously monitor for malicious activity and threats.",
+    icon: LockKeyhole,
+  },
+  {
+    name: "Amazon Redshift",
+    category: "Analytics",
+    description: "Analyze data at scale with a fast cloud data warehouse.",
+    icon: BarChart3,
+  },
+  {
+    name: "Amazon Athena",
+    category: "Analytics",
+    description: "Query data in Amazon S3 using standard SQL.",
+    icon: BarChart3,
+  },
+  {
+    name: "Amazon SageMaker",
+    category: "AI & ML",
+    description: "Build, train, and deploy machine learning models at scale.",
+    icon: Bot,
+  },
+  {
+    name: "Amazon Bedrock",
+    category: "AI & ML",
+    description: "Build generative AI applications with foundation models.",
+    icon: Bot,
+  },
 ] as const;
 
 function Index() {
@@ -81,7 +150,8 @@ function Index() {
     const query = search.trim().toLowerCase();
     return services.filter((service) => {
       const matchesCategory = activeCategory === "All" || service.category === activeCategory;
-      const matchesSearch = !query || `${service.name} ${service.description}`.toLowerCase().includes(query);
+      const matchesSearch =
+        !query || `${service.name} ${service.description}`.toLowerCase().includes(query);
       return matchesCategory && matchesSearch;
     });
   }, [activeCategory, search]);
@@ -105,13 +175,18 @@ function Index() {
               <p className="aws-eyebrow mb-3">Amazon Web Services</p>
               <h1 className="display-4 fw-bold mb-3">Build anything in the cloud</h1>
               <p className="lead mb-0">
-                Explore essential AWS services for computing, storing data, building applications, and more.
+                Explore essential AWS services for computing, storing data, building applications,
+                and more.
               </p>
             </div>
             <div className="col-lg-5">
-              <label htmlFor="service-search" className="visually-hidden">Search services</label>
+              <label htmlFor="service-search" className="visually-hidden">
+                Search services
+              </label>
               <div className="input-group input-group-lg aws-search">
-                <span className="input-group-text border-0"><Search size={20} aria-hidden="true" /></span>
+                <span className="input-group-text border-0">
+                  <Search size={20} aria-hidden="true" />
+                </span>
                 <input
                   id="service-search"
                   className="form-control border-0"

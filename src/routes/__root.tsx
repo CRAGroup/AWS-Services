@@ -82,7 +82,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Browse a clear directory of popular AWS cloud services." },
       { name: "author", content: "AWS Services Directory" },
       { property: "og:title", content: "AWS Services Directory" },
-      { property: "og:description", content: "Browse a clear directory of popular AWS cloud services." },
+      {
+        property: "og:description",
+        content: "Browse a clear directory of popular AWS cloud services.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
