@@ -1,0 +1,114 @@
+name: Deploy AWS Services App
+ 
+on:
+
+  push:
+
+    branches:
+
+      - main
+ 
+jobs:
+
+  deploy:
+
+    name: Build and Deploy to Sandbox EC2
+
+    runs-on: ubuntu-latest
+ 
+    steps:
+
+      # 1. Get application source code
+
+      - name: Checkout repository
+
+        uses: actions/checkout@v4
+ 
+      # 2. Install Node.js
+
+      - name: Setup Node.js
+
+        uses: actions/setup-node@v4
+
+        with:
+
+          node-version: 22
+
+          cache: npm
+ 
+      # 3. Install dependencies
+
+      - name: Install dependencies
+
+        run: npm ci
+ 
+      # 4. Validate code
+
+      - name: Lint
+
+        run: npm run lint
+ 
+      # 5. Run tests
+
+      - name: Test
+
+        run: npm test
+ 
+      # 6. Build production application
+
+      - name: Build application
+
+        run: npm run build
+ 
+      # 7. Configure SSH
+
+      - name: Configure SSH
+
+        run: |
+
+          mkdir -p ~/.ssh
+
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/aws-services-deploy
+
+          chmod 600 ~/.ssh/aws-services-deploy
+
+          ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
+ 
+      # 8. Deploy application to EC2
+
+      - name: Deploy to EC2
+
+        run: |
+
+          rsync -az --delete \
+
+            -e "ssh -i ~/.ssh/aws-services-deploy" \
+
+            .output/ \
+
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/aws-services/.output/
+ 
+      # 9. Restart application
+
+      - name: Restart application
+
+        run: |
+
+          ssh -i ~/.ssh/aws-services-deploy \
+
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
+
+            "cd /var/www/aws-services && \
+
+             if pm2 describe aws-services >/dev/null 2>&1; then \
+
+               pm2 restart aws-services; \
+
+             else \
+
+               pm2 start .output/server/index.mjs --name aws-services; \
+
+             fi && \
+
+             pm2 save"
+ 
