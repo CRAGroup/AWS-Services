@@ -161,8 +161,7 @@ function Index() {
       <nav className="navbar navbar-dark aws-navbar" aria-label="Main navigation">
         <div className="container py-2">
           <a className="navbar-brand d-flex align-items-center gap-2 fw-semibold" href="#top">
-            <Cloud aria-hidden="true" size={26} />
-            <span>AWS Services</span>
+            <img className ="h-12" src="/logo.png" alt="AWS Services logo" height={32} style={{ objectFit: "contain" }} />
           </a>
           <span className="navbar-text d-none d-sm-inline">Cloud services directory</span>
         </div>
@@ -234,13 +233,13 @@ function Index() {
                         <span className="aws-icon d-inline-flex align-items-center justify-content-center">
                           <Icon size={24} aria-hidden="true" />
                         </span>
-                        <span className="badge aws-badge">{service.category}</span>
+                        <span className="badge aws-badge bg-success">{service.category}</span>
                       </div>
                       <h3 className="h5 fw-bold mb-2">{service.name}</h3>
                       <p className="text-secondary mb-4">{service.description}</p>
                       <a
                         className="aws-link fw-semibold text-decoration-none d-inline-flex align-items-center gap-1"
-                        href={`https://aws.amazon.com/products/${service.name.toLowerCase().replaceAll("amazon ", "").replaceAll("aws ", "").replaceAll(" & ", "-").replaceAll(" ", "-")}/`}
+                        href={`https://aws.amazon.com/${service.name.toLowerCase().replaceAll("amazon ", "").replaceAll("aws ", "").replaceAll(" & ", "-").replaceAll(" ", "-")}/`}
                         target="_blank"
                         rel="noreferrer"
                       >
