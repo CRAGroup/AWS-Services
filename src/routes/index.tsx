@@ -161,7 +161,13 @@ function Index() {
       <nav className="navbar navbar-dark aws-navbar" aria-label="Main navigation">
         <div className="container py-2">
           <a className="navbar-brand d-flex align-items-center gap-2 fw-semibold" href="#top">
-            <img className ="h-12" src="/logo.png" alt="AWS Services logo" height={32} style={{ objectFit: "contain" }} />
+            <img
+              className="h-12"
+              src="/logo.png"
+              alt="AWS Services logo"
+              height={32}
+              style={{ objectFit: "contain" }}
+            />
           </a>
           <span className="navbar-text d-none d-sm-inline">Cloud services directory</span>
         </div>
