@@ -178,7 +178,7 @@ function Index() {
           <div className="row align-items-end g-4">
             <div className="col-lg-7">
               <p className="aws-eyebrow mb-3">Amazon Web Services</p>
-              <h1 className="display-4 fw-bold mb-3">Build something in the cloud</h1>
+              <h1 className="display-4 fw-bold mb-3">Build anything in the cloud</h1>
               <p className="lead mb-0">
                 Explore essential AWS services for computing, storing data, building applications,
                 and more.
